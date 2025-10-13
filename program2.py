@@ -1,12 +1,16 @@
-import sys
+from typing import List, Tuple
 
-def solve():
-    first = sys.stdin.readline().strip()
-    if not first:
-        return
-    n, k = map(int, first.split())
-    values = list(map(int, sys.stdin.readline().strip().split()))
-
+def program2(n: int, k: int, values: List[int]) -> Tuple[int, List[int]]:
+    """
+    Solution to Program 2
+    Parameters:
+    n (int): number of vaults
+    k (int): no two chosen vaults are within k positions of each other
+    values (List[int]): the values of the vaults
+    Returns:
+    int: maximal total value
+    List[int]: the indices of the chosen vaults(1-indexed)
+    """
     # Step 1 find index p (minimum value)
     p = 0
     for i in range(1, n):
@@ -14,14 +18,14 @@ def solve():
             p = i
 
     # Step 2 select from the left segment
-    left = []
+    left: List[int] = []
     i = 0
     while i <= p - (k + 1):
         left.append(i + 1)
         i += (k + 1)
 
     # Step 3 select from right segment
-    right = []
+    right: List[int] = []
     j = n - 1
     while j >= p + 1:
         right.append(j + 1)
@@ -39,8 +43,13 @@ def solve():
     indices = left + right
     total = sum(values[idx - 1] for idx in indices)
 
-    out = [str(total)] + [str(idx) for idx in indices]
-    sys.stdout.write("\n".join(out))
+    return total, indices
 
-if __name__ == "__main__":
-    solve()
+
+if __name__ == '__main__':
+    n, k = map(int, input().split())
+    values = list(map(int, input().split()))
+    m, indices = program2(n, k, values)
+    print(m)
+    for i in indices:
+        print(i)
