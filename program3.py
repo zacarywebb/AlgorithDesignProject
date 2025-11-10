@@ -2,8 +2,7 @@ from typing import List, Tuple
 
 
 def program3(n: int, k: int, values: List[int]) -> Tuple[int, List[int]]:
-    """
-    Solution to Program 3 (Naïve 2^n search, no memoization)
+    """Solution to Program 3 (Naïve 2^n search, no memoization)
 
     Parameters:
     n (int): number of vaults
